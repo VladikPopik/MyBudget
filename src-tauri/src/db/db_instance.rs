@@ -28,4 +28,9 @@ impl DBInstance {
             connection: connection,
         }
     }
+
+    pub fn connection() -> SqliteConnection {
+        let mut _db_instance = DBInstance::new();
+        _db_instance.connection
+    }
 }

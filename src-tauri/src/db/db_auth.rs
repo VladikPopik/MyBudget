@@ -1,12 +1,10 @@
 use super::db_instance::DBInstance;
 use crate::models::models::Users;
+use crate::schema::schema::users::dsl::*;
 use diesel::prelude::*;
 
 pub async fn read_user(login: String) -> Users {
-    use crate::schema::schema::users::dsl::*;
-    let mut db_instance = DBInstance::new();
-
-    let connection = &mut db_instance.connection;
+    let connection = &mut DBInstance::connection();
 
     let user_select = users
         .select(Users::as_select())
@@ -18,10 +16,7 @@ pub async fn read_user(login: String) -> Users {
 }
 
 pub async fn create_user(login: String, name: String, email: String, tg: String, password: String) {
-    use crate::schema::schema::users::dsl::*;
-
-    let mut db_instance = DBInstance::new();
-    let connection = &mut db_instance.connection;
+    let connection = &mut DBInstance::connection();
 
     let new_user = Users {
         user_login: login,
