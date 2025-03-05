@@ -29,29 +29,31 @@ function Login() {
     formDetails.append('username', username);
     formDetails.append('password', password);
 
-    try {
-      const response = await fetch(`${config.protocol}://${config.host}:${config.port}/auth/token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formDetails,
-      });
+    // try {
+    //   const response = await fetch(`${config.protocol}://${config.host}:${config.port}/auth/token`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/x-www-form-urlencoded',
+    //     },
+    //     body: formDetails,
+    //   });
 
-      setLoading(false);
+    //   setLoading(false);
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.access_token);
-        navigate('/home');
-      } else {
-        const errorData = await response.json();
-        setError(errorData.detail || 'Authentication failed!');
-      }
-    } catch (error) {
-      setLoading(false);
-      setError('An error occurred. Please try again later.');
-    }
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     localStorage.setItem('token', data.access_token);
+    //     navigate('/home');
+    //   } else {
+    //     const errorData = await response.json();
+    //     setError(errorData.detail || 'Authentication failed!');
+    //   }
+    // } catch (error) {
+    //   setLoading(false);
+    //   setError('An error occurred. Please try again later.');
+    // }
+  // };
+    navigate("/home");
   };
   return ( 
       <div className='login-form'>  

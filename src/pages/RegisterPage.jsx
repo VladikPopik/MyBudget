@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../config";
+import { invoke } from "@tauri-apps/api/core";
 
 function RegisterPage() {
     const [user_login, setUsername] = useState('');
@@ -62,36 +63,23 @@ function RegisterPage() {
         formDetails.append("is_superuser", false);
 
         try {
-            const response = await fetch(`${config.protocol}://${config.host}:${config.port}/auth/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: JSON.stringify({user_login: user_login, password: password, confirm_password: confirmPassword, user_email: email, tg_login: tg_login, is_superuser: false}),
-            });
-            const username = user_login;
-            const newFormDetails = new URLSearchParams();
-            newFormDetails.append("username", username);
-            newFormDetails.append("password", password);
-            const response_token = await fetch(`${config.protocol}://${config.host}:${config.port}/auth/token`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: newFormDetails,
-            });            
+            const response = await invoke(
+                'register',
+                {
+                    login: JSON.stringify(user_login),
+                    name: JSON.stringify(user_login),
+                    password: JSON.stringify(password),
+                    email: JSON.stringify(email),
+                    tg: JSON.stringify(tg_login)
+                }
+            )
 
             setLoading(false);
 
             if (response.ok) {
-                if (response_token.ok){
-                    const data = await response_token.json();
-                    localStorage.setItem("token", data.access_token);
-                }
-                navigate("/home");
+                navigate("/login");
             } else {
-                const errorData = await response.json();
-                setError(errorData.detail || "Registration failed!");
+                setError( "Registration failed!"); //errorData.detail || 
             }
         } catch (error) {
             console.log(error)

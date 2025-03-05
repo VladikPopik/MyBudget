@@ -1,12 +1,10 @@
-#[derive(Default)]
-struct MyState {
-  s: std::sync::Mutex<String>,
-  t: std::sync::Mutex<std::collections::HashMap<String, String>>,
-}
-// remember to call `.manage(MyState::default())`
+use crate::db::db_auth::read_user;
+
 #[tauri::command]
-async fn command_name(state: tauri::State<'_, MyState>) -> Result<(), String> {
-  *state.s.lock().unwrap() = "new string".into();
-  state.t.lock().unwrap().insert("key".into(), "value".into());
-  Ok(())
+pub async fn login(user_login: String, password: String) -> bool {
+    let user = read_user(user_login).await;
+    if user.user_password == password {
+        return true;
+    };
+    false
 }

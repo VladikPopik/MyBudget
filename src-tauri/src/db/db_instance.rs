@@ -1,4 +1,3 @@
-
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
@@ -6,7 +5,7 @@ use std::env;
 pub struct DBInstance {
     _url: String,
     _active: bool,
-    _connection: SqliteConnection,
+    pub connection: SqliteConnection,
 }
 
 impl Default for DBInstance {
@@ -26,7 +25,7 @@ impl DBInstance {
         Self {
             _url: database_url,
             _active: true,
-            _connection: connection,
+            connection: connection,
         }
     }
 }
