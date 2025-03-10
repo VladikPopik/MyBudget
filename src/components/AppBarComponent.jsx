@@ -9,9 +9,9 @@ export default function AppBarComponent(){
         <div>
             <Box sx={{flexGrow: 1, top: 0, left:0, position: 'fixed', width: "100%", height: "100%", justifyContent: "centre"}}>
                 
-                <AppBar position='static' sx={{width: "100%", height: "10%", backgroundColor: "#228BE6"}}>
+                <AppBar position='static' sx={{width: "100%", height: "10%", backgroundColor: "#228126"}}>
                     <Toolbar sx={{width: "100%", height: "100%", justifyContent: "centre"}}>
-                    <h1 style={{position: 'absolute', top: "50%", left: '50%', transform: 'translate(-50%, -50%)'}}>&#128187;BUDGET&#128187;</h1>
+                    <h1 style={{position: 'absolute', top: "25%", left: '50%', transform: 'translate(-50%, -50%)'}}>&#128187;BUDGET&#128187;</h1>
                         <DrawerComponent />
                     </Toolbar>
                 </AppBar>
